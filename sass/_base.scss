@@ -1,0 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Space Mono', monospace;
+  background-color: $color-neutral-bg;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  @include respond(tab-port) {
+    height: 100%;
+  }
+}
+
+.main__logo {
+  margin-top: 8rem;
+  @include respond(mobile-m) {
+    margin-top: 4.8rem;
+  }
+}

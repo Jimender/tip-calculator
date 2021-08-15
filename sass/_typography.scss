@@ -1,0 +1,56 @@
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  color: $color-light-grayish-cyan;
+
+  @include respond(mobile-m) {
+    font-size: 1.6rem;
+  }
+}
+
+h3 {
+  color: $color-dark-grayish-cyan-2;
+
+  @include respond(mobile-m) {
+    font-size: 1.4rem;
+  }
+}
+
+.form__label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $color-dark-grayish-cyan-1;
+
+  @include respond(mobile-m) {
+    font-size: 1.6rem;
+  }
+}
+
+.btn--form {
+  font-family: inherit;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.btn--reset {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: $color-primary-button;
+
+  @include respond(mobile-m) {
+    font-size: 1.8rem;
+  }
+}
+
+.tip-amt,
+.total-amt {
+  font-weight: 700;
+  color: $color-primary-button-light;
+  font-size: 4rem;
+
+  @include respond(mobile-m) {
+    font-size: 3.1rem;
+  }
+}

@@ -1,0 +1,13 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == tab-port {
+    @media (max-width: 56.25em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == mobile-m {
+    @media (max-width: 37.5em) {
+      @content;
+    }
+  }
+}

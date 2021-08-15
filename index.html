@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Frontend Mentor | Tip calculator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <img src="images/logo.svg" alt="header logo" class="main__logo" />
+      <section class="bill">
+        <div class="bill__form">
+          <form action="#" class="form">
+            <div class="form__group">
+              <div class="label--box">
+                <label for="amt" class="form__label">Bill</label>
+                <span class="form__label amt--label"></span>
+              </div>
+              <div class="input__box">
+                <img
+                  src="images/icon-dollar.svg"
+                  alt="usd price"
+                  class="amt--img"
+                />
+                <input
+                  type="number"
+                  class="form__input amt"
+                  min="0"
+                  step="1"
+                  placeholder="0"
+                  id="amt"
+                />
+              </div>
+            </div>
+            <div class="form__group">
+              <div class="label--box">
+                <span class="form__label">Select Tip %</span>
+                <span class="form__label custom--label"></span>
+              </div>
+              <div class="form__tips">
+                <button class="btn btn--form" type="button">5%</button>
+                <button class="btn btn--form" type="button">10%</button>
+                <button class="btn btn--form" type="button">15%</button>
+                <button class="btn btn--form" type="button">25%</button>
+                <button class="btn btn--form" type="button">50%</button>
+                <div class="input__box custom__box">
+                  <input
+                    type="number"
+                    class="form__custom"
+                    id="custom"
+                    min="1"
+                    step="1"
+                    placeholder="Custom"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form__group">
+              <div class="label--box">
+                <label for="people" class="form__label">Number of People</label>
+                <span class="form__label people--label">Cannot be Zero</span>
+              </div>
+              <div class="input__box">
+                <img
+                  src="images/icon-person.svg"
+                  alt="person logo"
+                  class="people--img"
+                />
+                <input
+                  type="number"
+                  class="form__input people"
+                  min="0"
+                  step="1"
+                  placeholder="0"
+                  id="people"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="bill__display">
+          <div class="display">
+            <div class="display__box--1">
+              <div class="left--side">
+                <h2>Tip Amount</h2>
+                <h3>/&nbsp;person</h3>
+              </div>
+              <div class="right--side">
+                <span class="tip-amt">$0.00</span>
+              </div>
+            </div>
+            <div class="display__box--2">
+              <div class="left--side">
+                <h2>Total</h2>
+                <h3>/&nbsp;person</h3>
+              </div>
+              <div class="right--side">
+                <span class="total-amt">$0.00</span>
+              </div>
+            </div>
+            <button class="btn btn--reset" disabled>RESET</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

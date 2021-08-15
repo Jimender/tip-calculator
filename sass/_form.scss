@@ -1,0 +1,111 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__group:not(:last-child) {
+    margin-bottom: 3.7rem;
+
+    @include respond(mobile-m) {
+      margin-bottom: 2.8rem;
+    }
+  }
+
+  &__label {
+    margin-bottom: 0.8rem;
+  }
+
+  .amt--label,
+  .people--label,
+  .custom--label {
+    visibility: hidden;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $color-warning;
+
+    @include respond(mobile-m) {
+      font-weight: 400;
+    }
+  }
+
+  .label--box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__tips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 0.8rem;
+
+    @include respond(mobile-m) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6rem;
+    }
+  }
+
+  .input__box {
+    border-radius: 0.7rem;
+    border: 2px solid $color-neutral-white;
+    overflow: hidden;
+    padding: 0.4rem 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-light-grayish-cyan;
+
+    @include respond(mobile-m) {
+      padding: 0.6rem 1.5rem;
+    }
+  }
+
+  .custom__box {
+    padding: 0 0.5rem;
+  }
+
+  &__input,
+  &__custom {
+    width: 100%;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 2.4rem;
+    border: none;
+    background-color: $color-light-grayish-cyan;
+    text-align: right;
+    font-weight: 700;
+    color: $color-primary-button;
+    outline: none;
+
+    &::placeholder {
+      color: $color-dark-grayish-cyan-2;
+      opacity: 0.7;
+    }
+  }
+
+  &__custom {
+    &::placeholder {
+      color: $color-dark-grayish-cyan-1;
+      text-align: center;
+    }
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .correct__format {
+    border: 2px solid $color-primary-button-light;
+  }
+  .wrong__format {
+    border: 2px solid $color-warning;
+  }
+}

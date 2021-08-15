@@ -1,0 +1,47 @@
+.btn {
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &--form {
+    background-color: $color-primary-button;
+    border: none;
+    color: $color-light-grayish-cyan;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.4rem;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: $color-primary-button-hover;
+        color: $color-primary-button;
+      }
+    }
+
+    @include respond(mobile-m) {
+      padding: 0.6rem 0.8rem;
+    }
+  }
+
+  &--reset {
+    margin-top: 11.8rem;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 1.2rem;
+    background-color: $color-primary-button-light;
+
+    &:disabled {
+      background-color: $color-disabled-button;
+    }
+
+    @media (hover: hover) {
+      &:enabled:hover {
+        background-color: $color-primary-button-hover;
+        color: $color-primary-button;
+      }
+    }
+  }
+}
+
+.active {
+  background-color: $color-primary-button-light;
+  color: $color-primary-button;
+}
