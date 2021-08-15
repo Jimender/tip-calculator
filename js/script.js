@@ -37,13 +37,21 @@ let evt;
 const validator = function (num, lbl, val, e) {
   evt = e.target.closest('.input__box');
   evt.classList.remove(...classArr);
+  console.log(val.max);
 
   if (num) {
     if (Number(val.value) <= 0) {
       evt.classList.add('wrong__format');
       lbl.style = 'visibility: visible';
       lbl.textContent = "Can't be zero or less";
+      resetDisplay();
       resetBtn.disabled = true;
+    } else if (Number(val.value) > val.max) {
+      evt.classList.add('wrong__format');
+      lbl.style = 'visibility: visible';
+      lbl.textContent = 'Excedded Max Value';
+      resetBtn.disabled = true;
+      resetDisplay();
     } else {
       evt.classList.add('correct__format');
       lbl.style = 'visibility: hidden';
@@ -54,6 +62,7 @@ const validator = function (num, lbl, val, e) {
     lbl.style = 'visibility: visible';
     lbl.textContent = 'Not a Number';
     resetBtn.disabled = true;
+    resetDisplay();
   }
 };
 
@@ -81,21 +90,28 @@ const formatter = (val) => {
     style: 'currency',
     currency: 'USD',
     currencySign: 'accounting',
+    notation: 'compact',
+    compactDisplay: 'short',
+    maximumFractionDigits: 2,
   }).format(val);
 };
 
 // reset Everything
-const reset = () => {
+const resetDisplay = () => {
+  displayTotalAmt.textContent = '$0.00';
+  displayTotalTip.textContent = '$0.00';
+};
+
+const resetAll = () => {
   totalPerPerson = 0;
   tipPerPerson = 0;
   billAmt.value = '';
   totalPeople.value = '';
   formCustom.value = '';
   resetBtn.disabled = true;
-  displayTotalAmt.textContent = '$0.00';
-  displayTotalTip.textContent = '$0.00';
   formBtns.forEach((btn) => btn.classList.remove('active'));
   inputBox.forEach((box) => box.classList.remove(...classArr));
+  resetDisplay();
 };
 
 //////////////////
@@ -124,7 +140,10 @@ formCustom.addEventListener('input', (e) => {
 
   const inputNum = numberRegex.test(formCustom.value);
 
-  tip = Number(formCustom.value) < 0 ? 0 : Number(formCustom.value);
+  tip =
+    Number(formCustom.value) < 0 || Number(formCustom.value) > formCustom.max
+      ? 0
+      : Number(formCustom.value);
   validator(inputNum, custLabel, formCustom, e);
 
   calculator(Number(billAmt.value), Number(totalPeople.value));
@@ -146,4 +165,4 @@ totalPeople.addEventListener('input', (e) => {
   validator(inputNum, peopleLabel, totalPeople, e);
 });
 
-resetBtn.addEventListener('click', reset);
+resetBtn.addEventListener('click', resetAll);
