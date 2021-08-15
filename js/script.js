@@ -48,8 +48,6 @@ const validator = function (num, lbl, val, e) {
       resetBtn.disabled = true;
     } else if (Number(val.value) > val.max) {
       evt.classList.add('wrong__format');
-      lbl.style = 'visibility: visible';
-      lbl.textContent = 'Excedded Max Value';
       resetBtn.disabled = true;
       resetDisplay();
     } else {
