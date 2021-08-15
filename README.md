@@ -35,8 +35,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [CODE](https://github.com/Jimender/tip-calculator)
+- Live Site URL: [LIVE](https://github.com/Jimender/tip-calculator)
 
 ## My process
 
