@@ -102,6 +102,11 @@
     margin: 0;
   }
 
+  //for firefox
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
   .correct__format {
     border: 2px solid $color-primary-button-light;
   }
