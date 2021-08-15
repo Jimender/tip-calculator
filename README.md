@@ -36,7 +36,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [CODE](https://github.com/Jimender/tip-calculator)
-- Live Site URL: [LIVE](https://github.com/Jimender/tip-calculator)
+- Live Site URL: [LIVE](https://jimender.github.io/tip-calculator/)
 
 ## My process
 
