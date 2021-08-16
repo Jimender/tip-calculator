@@ -55,7 +55,7 @@
                   type="number"
                   class="form__input amt"
                   min="0"
-                  max="10000"
+                  max="1000000000000000000"
                   step="1"
                   placeholder="0"
                   id="amt"
@@ -118,7 +118,8 @@
                 <h3>/&nbsp;person</h3>
               </div>
               <div class="right--side">
-                <span class="tip-amt">$0.00</span>
+                <input type="text" class="tip-amt" value="$0.00" readonly />
+                <!-- <span class="tip-amt">$0.00</span> -->
               </div>
             </div>
             <div class="display__box--2">
@@ -127,7 +128,8 @@
                 <h3>/&nbsp;person</h3>
               </div>
               <div class="right--side">
-                <span class="total-amt">$0.00</span>
+                <input type="text" class="total-amt" value="$0.00" readonly />
+                <!-- <span class="total-amt">$0.00</span> -->
               </div>
             </div>
             <button class="btn btn--reset" disabled>RESET</button>

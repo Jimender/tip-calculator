@@ -46,6 +46,7 @@ h3 {
 
 .tip-amt,
 .total-amt {
+  font: inherit;
   font-weight: 700;
   color: $color-primary-button-light;
   font-size: 4rem;

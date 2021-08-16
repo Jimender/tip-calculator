@@ -57,5 +57,18 @@
     &__box--2 {
       margin-top: 3rem;
     }
+
+    .left--side {
+      width: 100%;
+    }
+
+    .tip-amt,
+    .total-amt {
+      width: 100%;
+      border: none;
+      background: inherit;
+      text-align: right;
+      outline: none;
+    }
   }
 }

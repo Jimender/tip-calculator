@@ -1,166 +1,176 @@
 /////////////////
 // DOM Selector
 
-const billAmt = document.querySelector('.amt');
-const totalPeople = document.querySelector('.people');
-const displayTotalAmt = document.querySelector('.total-amt');
-const displayTotalTip = document.querySelector('.tip-amt');
+//inputs
+const billInput = document.querySelector('.amt');
+const tipInput = document.querySelector('.form__custom');
+const peopleInput = document.querySelector('.people');
 
-const inputBox = Array.from(document.querySelectorAll('.input__box'));
+//error message
+const errorAmt = document.querySelector('.amt--label');
+const errorTip = document.querySelector('.custom--label');
+const errorPeople = document.querySelector('.people--label');
 
-const amtLabel = document.querySelector('.amt--label');
-const peopleLabel = document.querySelector('.people--label');
-const custLabel = document.querySelector('.custom--label');
-
-const form = document.querySelector('.bill__form');
-const formCustom = document.querySelector('.form__custom');
-const formTips = document.querySelector('.form__tips');
-const formBtns = document.querySelectorAll('.btn--form');
-
+//buttons
+const tipBtns = document.querySelectorAll('.btn--form');
 const resetBtn = document.querySelector('.btn--reset');
 
-////////////////
-// variables
+//form
+const formTips = document.querySelector('.form__tips');
 
+//display
+const displayTip = document.querySelector('.tip-amt');
+const displayTotal = document.querySelector('.total-amt');
+
+//variables
 const numberRegex = /^\s*[+-]?(\d+|\.\d+|\d+\.\d+|\d+\.)(e[+-]?\d+)?\s*$/; //NUMBER VALIDATION
+let labels = [errorAmt, errorTip, errorPeople];
+let inputs = [billInput, tipInput, peopleInput];
+let formatArr = ['wrong__format', 'correct__format'];
 
-const classArr = ['wrong__format', 'correct__format'];
-let totalPerPerson = 0;
-let tipPerPerson = 0;
-let tip = 0;
-let evt;
+//object
+const obj = {
+  billAmt: 0,
+  tipRate: 0,
+  noPeople: 1,
+  totalBill: 0,
+  totalTip: 0,
 
-///////////////
+  reset() {
+    this.billAmt = 0;
+    this.tipRate = 0;
+    this.noPeople = 1;
+    this.totalBill = 0;
+    this.totalTip = 0;
+  },
+};
+
+////////////
 // Methods
 
-// Validate Inputs
-const validator = function (num, lbl, val, e) {
-  evt = e.target.closest('.input__box');
-  evt.classList.remove(...classArr);
-  console.log(val.max);
+//Toggle Visibility
 
-  if (num) {
-    if (Number(val.value) <= 0) {
-      evt.classList.add('wrong__format');
-      lbl.style = 'visibility: visible';
-      lbl.textContent = "Can't be zero or less";
-      resetDisplay();
-      resetBtn.disabled = true;
-    } else if (Number(val.value) > val.max) {
-      evt.classList.add('wrong__format');
-      resetBtn.disabled = true;
-      resetDisplay();
-    } else {
-      evt.classList.add('correct__format');
-      lbl.style = 'visibility: hidden';
-      calculator(Number(billAmt.value), Number(totalPeople.value));
-    }
+const toggleBorder = (field, frmt) => {
+  field.closest('.input__box').classList.remove(...formatArr);
+  if (!frmt === 'none') return;
+  field.closest('.input__box').classList.add(`${frmt}`);
+};
+
+const toggleMssg = (lbl, txt = 'none', vis = 'hidden') => {
+  lbl.style = `visibility: ${vis}`;
+  lbl.innerHTML = `${txt}`;
+};
+
+// validate Values
+const validator = (errorMsg, input, amt) => {
+  const val = parseFloat(input.value);
+
+  if (!numberRegex.test(val)) {
+    toggleMssg(errorMsg, 'Not a Number', 'visible');
+    toggleBorder(input, 'wrong__format');
+    return;
+  }
+
+  if (val <= 0) {
+    toggleMssg(errorMsg, "Can't be zero or less", 'visible');
+    toggleBorder(input, 'wrong__format');
+    return;
   } else {
-    evt.classList.add('wrong__format');
-    lbl.style = 'visibility: visible';
-    lbl.textContent = 'Not a Number';
-    resetBtn.disabled = true;
-    resetDisplay();
+    if (val > input.max) {
+      toggleMssg(errorMsg, 'Max Value Exceeded', 'visible');
+      toggleBorder(input, 'wrong__format');
+    } else {
+      obj[`${amt}`] = val;
+      toggleMssg(errorMsg);
+      toggleBorder(input, 'correct__format');
+      calculateBill();
+    }
   }
 };
 
-// calulate Bill
-const calculator = (bill, person) => {
-  if (person > 0) {
-    tipPerPerson = (bill * (tip / 100)) / person;
-    totalPerPerson = bill / person + tipPerPerson;
-
-    display(Math.abs(tipPerPerson), totalPerPerson);
-
-    resetBtn.disabled = false;
-  }
+//bill
+const billMethod = () => {
+  validator(errorAmt, billInput, 'billAmt');
 };
 
-// display Bill
-const display = (tip, bill) => {
-  displayTotalTip.textContent = formatter(tip);
-  displayTotalAmt.textContent = formatter(bill);
+//tip
+const tipMethod = () => {
+  validator(errorTip, tipInput, 'tipRate');
 };
 
-// format Values
+//people
+const peopleMethod = () => {
+  validator(errorPeople, peopleInput, 'noPeople');
+  resetBtn.disabled = false;
+};
+
+// select from btn or custom value
+const selectTip = (e) => {
+  const clicked = e.target.closest('.btn--form');
+
+  tipBtns.forEach((btn) => {
+    btn.classList.remove('active');
+  });
+
+  if (e.target.classList.contains('form__custom')) return;
+  if (!clicked) return;
+
+  clicked.classList.add('active');
+
+  obj.tipRate = parseInt(clicked.textContent);
+
+  toggleBorder(tipInput, 'none');
+  toggleMssg(errorTip);
+  calculateBill();
+};
+
+//calculate total
+const calculateBill = () => {
+  obj.totalTip = (obj.billAmt * obj.tipRate) / 100;
+  obj.totalBill = obj.billAmt + obj.totalTip;
+  displayBill();
+};
+
+// formatter
 const formatter = (val) => {
-  return new Intl.NumberFormat('en-us', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     currencySign: 'accounting',
-    notation: 'compact',
-    compactDisplay: 'short',
     maximumFractionDigits: 2,
   }).format(val);
 };
 
-// reset Everything
-const resetDisplay = () => {
-  displayTotalAmt.textContent = '$0.00';
-  displayTotalTip.textContent = '$0.00';
+//display bills
+const displayBill = () => {
+  displayTip.value = formatter(obj.totalTip / obj.noPeople);
+  displayTotal.value = formatter(obj.totalBill / obj.noPeople);
 };
 
 const resetAll = () => {
-  totalPerPerson = 0;
-  tipPerPerson = 0;
-  billAmt.value = '';
-  totalPeople.value = '';
-  formCustom.value = '';
+  obj.reset();
+  inputs.forEach((input) => {
+    input.value = '';
+    toggleBorder(input);
+  });
+  labels.forEach((lbl) => {
+    toggleMssg(lbl);
+  });
+  tipBtns.forEach((btn) => {
+    btn.classList.remove('active');
+  });
+  displayTip.value = '$0.00';
+  displayTotal.value = '$0.00';
   resetBtn.disabled = true;
-  formBtns.forEach((btn) => btn.classList.remove('active'));
-  inputBox.forEach((box) => box.classList.remove(...classArr));
-  resetDisplay();
 };
 
-//////////////////
-//Event Handler
+///////////////////
+// Event Handlers
 
-// form tip selector
-formTips.addEventListener('click', (e) => {
-  const clicked = e.target.closest('.btn--form');
+billInput.addEventListener('input', billMethod);
+tipInput.addEventListener('input', tipMethod);
+peopleInput.addEventListener('input', peopleMethod);
 
-  if (!clicked) return;
-
-  formBtns.forEach((btn) => btn.classList.remove('active'));
-
-  clicked.classList.add('active');
-  formCustom.value = '';
-  tip = parseInt(clicked.textContent);
-
-  calculator(Number(billAmt.value), Number(totalPeople.value));
-});
-
-// custom tip
-formCustom.addEventListener('input', (e) => {
-  e.preventDefault();
-
-  formBtns.forEach((btn) => btn.classList.remove('active'));
-
-  const inputNum = numberRegex.test(formCustom.value);
-
-  tip =
-    Number(formCustom.value) < 0 || Number(formCustom.value) > formCustom.max
-      ? 0
-      : Number(formCustom.value);
-  validator(inputNum, custLabel, formCustom, e);
-
-  calculator(Number(billAmt.value), Number(totalPeople.value));
-});
-
-// bill input
-billAmt.addEventListener('input', (e) => {
-  e.preventDefault();
-  const inputNum = numberRegex.test(billAmt.value);
-
-  validator(inputNum, amtLabel, billAmt, e);
-});
-
-// people input
-totalPeople.addEventListener('input', (e) => {
-  e.preventDefault();
-  const inputNum = numberRegex.test(totalPeople.value);
-
-  validator(inputNum, peopleLabel, totalPeople, e);
-});
+formTips.addEventListener('click', selectTip);
 
 resetBtn.addEventListener('click', resetAll);

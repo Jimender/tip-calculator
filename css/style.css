@@ -36,6 +36,7 @@ h3 {
 
 .tip-amt,
 .total-amt {
+  font: inherit;
   font-weight: 700;
   color: #26c0ab;
   font-size: 4rem; }
@@ -231,3 +232,12 @@ body {
       margin-top: 0.8rem; }
     .bill .display__box--2 {
       margin-top: 3rem; }
+    .bill .display .left--side {
+      width: 100%; }
+    .bill .display .tip-amt,
+    .bill .display .total-amt {
+      width: 100%;
+      border: none;
+      background: inherit;
+      text-align: right;
+      outline: none; }
